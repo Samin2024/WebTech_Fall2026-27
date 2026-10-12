@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en-US">
+    <head>
+        <meta charset="UTF-8">
+        <title> Student Information Form </title>
+    </head>
+
+    <body>
+
+        <h1> Student Information Form </h1>
+
+        <form>
+
+            <table>
+                <tr>
+
+                    <!-- Left Box -->
+                    <td valign="top">
+
+                        <fieldset>
+                            <legend> Personal Information </legend>
+
+                            <table>
+
+                                <tr>
+                                    <td>
+                                        <label for="StudentName"> Name : </label>
+                                    </td>
+                                    <td>
+                                        <input type="text"
+                                               name="StudentName"
+                                               id="StudentName"
+                                               placeholder="Enter Your Name"
+                                               required>
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <td>
+                                        <label for="StudentID"> Student Id : </label>
+                                    </td>
+                                    <td>
+                                        <input type="text"
+                                               name="StudentID"
+                                               id="StudentID"
+                                               placeholder="Enter Student Id"
+                                               required>
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <td>
+                                        <label for="CGPA"> CGPA : </label>
+                                    </td>
+                                    <td>
+                                        <input type="number"
+                                               name="CGPA"
+                                               id="CGPA"
+                                               step="0.01"
+                                               placeholder="Enter CGPA">
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <td>
+                                        <label for="DOB"> DOB : </label>
+                                    </td>
+                                    <td>
+                                        <input type="date"
+                                               name="DOB"
+                                               id="DOB">
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <td>
+                                        <label> Gender : </label>
+                                    </td>
+                                    <td>
+                                        <input type="radio"
+                                               name="gender"
+                                               id="Male"
+                                               value="Male">
+                                        <label for="Male"> Male </label>
+
+                                        <input type="radio"
+                                               name="gender"
+                                               id="Female"
+                                               value="Female">
+                                        <label for="Female"> Female </label>
+                                    </td>
+                                </tr>
+
+                            </table>
+
+                        </fieldset>
+
+                    </td>
+
+
+                    <!-- Right Box -->
+                    <td valign="top">
+
+                        <fieldset>
+                            <legend> Educational Information </legend>
+
+                            <table border="1" cellpadding="8">
+
+                                <tr>
+                                    <th> Program </th>
+                                    <th> Major </th>
+                                    <th> Year </th>
+                                    <th> Institution </th>
+                                </tr>
+
+                                <tr>
+                                    <td> SSC </td>
+                                    <td>
+                                        <input type="text"
+                                               name="ssc_major"
+                                               placeholder="Major">
+                                    </td>
+                                    <td>
+                                        <input type="text"
+                                               name="ssc_year"
+                                               placeholder="Year">
+                                    </td>
+                                    <td>
+                                        <input type="text"
+                                               name="ssc_institution"
+                                               placeholder="Institution">
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <td> HSC </td>
+                                    <td>
+                                        <input type="text"
+                                               name="hsc_major"
+                                               placeholder="Major">
+                                    </td>
+                                    <td>
+                                        <input type="text"
+                                               name="hsc_year"
+                                               placeholder="Year">
+                                    </td>
+                                    <td>
+                                        <input type="text"
+                                               name="hsc_institution"
+                                               placeholder="Institution">
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <td> BSc </td>
+                                    <td>
+                                        <input type="text"
+                                               name="bsc_major"
+                                               placeholder="Major">
+                                    </td>
+                                    <td>
+                                        <input type="text"
+                                               name="bsc_year"
+                                               placeholder="Year">
+                                    </td>
+                                    <td>
+                                        <input type="text"
+                                               name="bsc_institution"
+                                               placeholder="Institution">
+                                    </td>
+                                </tr>
+
+                            </table>
+
+                        </fieldset>
+
+                    </td>
+
+                </tr>
+            </table>
+
+            <br>
+
+            <input type="submit" id="submit" value="Submit">
+            <input type="reset" id="reset" value="Reset">
+
+        </form>
+
+    </body>
+</html>

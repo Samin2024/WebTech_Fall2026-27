@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Final Term Phase</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: radial-gradient(circle at center, #1b2a47 0%, #0d1b2a 100%);
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            overflow: hidden;
+            color: #ffffff;
+        }
+
+        .card {
+            text-align: center;
+            padding: 55px 45px;
+            background: rgba(255, 255, 255, 0.04);
+            backdrop-filter: blur(15px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 24px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.6);
+            animation: float 4s ease-in-out infinite;
+            max-width: 680px;
+            width: 90%;
+        }
+
+        h1 {
+            font-size: 2.6rem;
+            font-weight: 700;
+            letter-spacing: 2px;
+            margin-bottom: 10px;
+            text-transform: uppercase;
+            background: linear-gradient(90deg, #ff9a9e, #fad0c4, #a1c4fd);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .phase-text {
+            font-size: 1.4rem;
+            color: #cbd5e1;
+            margin-bottom: 25px;
+            font-weight: 350;
+            letter-spacing: 1px;
+        }
+
+        .inshallah {
+            display: inline-block;
+            font-size: 2rem;
+            font-weight: bold;
+            color: #2ecc71;
+            letter-spacing: 3px;
+            padding: 10px 30px;
+            border: 2px dashed rgba(46, 204, 113, 0.5);
+            border-radius: 50px;
+            background: rgba(46, 204, 113, 0.08);
+            animation: pulse 2s infinite;
+            margin-bottom: 30px;
+        }
+
+        .trust-text {
+            font-size: 1.05rem;
+            color: #e2e8f0;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            font-weight: 500;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            padding-top: 22px;
+            opacity: 0.95;
+        }
+
+        @keyframes float {
+            0%, 100% {
+                transform: translateY(0);
+            }
+            50% {
+                transform: translateY(-8px);
+            }
+        }
+
+        @keyframes pulse {
+            0% {
+                transform: scale(1);
+                box-shadow: 0 0 0 0 rgba(46, 204, 113, 0.3);
+            }
+            70% {
+                transform: scale(1.04);
+                box-shadow: 0 0 0 12px rgba(46, 204, 113, 0);
+            }
+            100% {
+                transform: scale(1);
+                box-shadow: 0 0 0 0 rgba(46, 204, 113, 0);
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="card">
+        <h1>See You At</h1>
+        <div class="phase-text">Final Term Phase</div>
+        <div class="inshallah">INSHAALLAH</div>
+        <div class="trust-text">Keep Trust On Allah Subhanahu Watayala</div>
+    </div>
+
+</body>
+</html>
