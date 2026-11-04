@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Recruiter AI Dashboard</title>
+    <link rel="stylesheet" href="../Design/Style.css">
+    <script src="../JS/script.js" defer></script>
+</head>
+<body>
+
+<div class="dashboard-card">
+
+    <!-- Top Navigation Header -->
+    <div class="top-header">
+        <div class="header-title">
+            <h2>Recruiter AI Dashboard</h2>
+            <p>Role: Senior Developer Positions</p>
+        </div>
+        <div class="nav-toggle">
+            <button class="tab-btn active" onclick="switchTab('applicants', this)">Applicants</button>
+            <button class="tab-btn" onclick="switchTab('ai', this)">AI Assistant</button>
+        </div>
+    </div>
+
+    <!-- TAB 1: APPLICANTS PAGE -->
+    <div id="tab-applicants" class="tab-content active">
+
+        <!-- Filter & Sort Options -->
+        <div class="filter-bar">
+            <div class="filter-pills">
+                <button class="filter-pill active" onclick="filterCandidates('All', this)">All</button>
+                <button class="filter-pill" onclick="filterCandidates('Shortlisted', this)">Shortlisted</button>
+                <button class="filter-pill" onclick="filterCandidates('Pending', this)">Pending</button>
+                <button class="filter-pill" onclick="filterCandidates('Rejected', this)">Rejected</button>
+            </div>
+
+            <select id="sortSelect" class="sort-select" onchange="sortCandidates()">
+                <option value="highToLow">Highest Match &#9662;</option>
+                <option value="lowToHigh">Lowest Match &#9662;</option>
+            </select>
+        </div>
+
+        <!-- Applicant Card List -->
+        <div class="candidate-list" id="candidateList">
+            <!-- Populated dynamically via script.js -->
+        </div>
+
+        <!-- Candidate Detailed Skill Breakdown Panel -->
+        <div class="detail-panel" id="detailPanel">
+            <!-- Populated dynamically via script.js -->
+        </div>
+
+        <!-- Dynamic Candidate Match Score Bar Chart -->
+        <div class="chart-card">
+            <div class="chart-title">Candidate Match Scores</div>
+            <div class="chart-grid">
+                <div class="y-axis">
+                    <span>100</span>
+                    <span>50</span>
+                    <span>0</span>
+                </div>
+                <div class="chart-body">
+                    <div class="chart-bars" id="chartBars">
+                        <!-- Populated dynamically via script.js -->
+                    </div>
+                    <div class="x-axis" id="xAxis">
+                        <!-- Populated dynamically via script.js -->
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- TAB 2: AI ASSISTANT PAGE -->
+    <div id="tab-ai" class="tab-content">
+        <div class="ai-card">
+            <h3>AI Job Description Optimizer</h3>
+            <p class="subtitle">Generate automated skill criteria or adjust candidate weighting thresholds.</p>
+
+            <form onsubmit="applyAICriteria(event)">
+                <div class="form-group">
+                    <label for="positionTitle">Position Title</label>
+                    <input type="text" id="positionTitle" class="form-input" value="Senior React / Node.js Lead">
+                </div>
+
+                <div class="form-group">
+                    <label for="requiredSkills">Required Skills (Comma Separated)</label>
+                    <textarea id="requiredSkills" class="form-textarea">React, Node.js, Express, MongoDB, Docker, AWS</textarea>
+                </div>
+
+                <button type="submit" class="btn-submit">Apply Criteria & Recalculate</button>
+            </form>
+        </div>
+    </div>
+
+</div>
+
+</body>
+</html>
