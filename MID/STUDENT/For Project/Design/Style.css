@@ -407,6 +407,14 @@ body {
     resize: vertical;
 }
 
+/* Error validation text */
+.error-text {
+    color: #ef4444;
+    font-size: 12px;
+    font-weight: 600;
+    margin-top: 4px;
+}
+
 .btn-submit {
     background-color: #2563eb;
     border: none;
@@ -480,7 +488,7 @@ body {
     position: fixed;
     top: 20px;
     right: 20px;
-    background-color: #0f172a;
+    background-color: #ef4444;
     color: #ffffff;
     padding: 14px 24px;
     border-radius: 14px;

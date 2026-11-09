@@ -102,20 +102,23 @@
             <h3>Create & Manage Job Vacancies</h3>
             <p class="subtitle">Post new job openings, specify skill requirements, locations, salary, and active vacancies.</p>
 
-            <form id="jobPostForm" onsubmit="handleJobSubmit(event)">
+            <form id="jobPostForm" onsubmit="handleJobSubmit(event)" novalidate>
                 <div class="form-group">
                     <label for="jobTitleInput">Job Title</label>
-                    <input type="text" id="jobTitleInput" class="form-input" placeholder="e.g. Full Stack Engineer" required>
+                    <input type="text" id="jobTitleInput" class="form-input" placeholder="e.g. Full Stack Engineer">
+                    <div id="jobTitleError" class="error-text"></div>
                 </div>
 
                 <div class="form-row">
                     <div class="form-group">
                         <label for="jobLocationInput">Location</label>
                         <input type="text" id="jobLocationInput" class="form-input" placeholder="e.g. Remote / Dhaka">
+                        <div id="jobLocationError" class="error-text"></div>
                     </div>
                     <div class="form-group">
                         <label for="jobSalaryInput">Salary Range</label>
                         <input type="text" id="jobSalaryInput" class="form-input" placeholder="e.g. $1,000 - $1,500">
+                        <div id="jobSalaryError" class="error-text"></div>
                     </div>
                 </div>
 
@@ -123,16 +126,25 @@
                     <div class="form-group">
                         <label for="jobVacancyInput">Vacancy Count</label>
                         <input type="number" id="jobVacancyInput" class="form-input" placeholder="e.g. 2" min="1">
+                        <div id="jobVacancyError" class="error-text"></div>
                     </div>
                     <div class="form-group">
-                        <label for="jobSkillsInput">Required Skills (Comma Separated)</label>
-                        <input type="text" id="jobSkillsInput" class="form-input" placeholder="e.g. React, Node.js, Docker" required>
+                        <label for="jobExperienceInput">Experience Required</label>
+                        <input type="text" id="jobExperienceInput" class="form-input" placeholder="e.g. 2 Years or N/A">
+                        <div id="jobExperienceError" class="error-text"></div>
                     </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="jobSkillsInput">Required Skills (Comma Separated)</label>
+                    <input type="text" id="jobSkillsInput" class="form-input" placeholder="e.g. React, Node.js, Docker">
+                    <div id="jobSkillsError" class="error-text"></div>
                 </div>
 
                 <div class="form-group">
                     <label for="jobDescInput">Job Description / Info</label>
                     <textarea id="jobDescInput" class="form-textarea" placeholder="Enter job summary and requirements to show customers..."></textarea>
+                    <div id="jobDescError" class="error-text"></div>
                 </div>
 
                 <button type="submit" id="jobSubmitBtn" class="btn-submit">Post Job Vacancy</button>

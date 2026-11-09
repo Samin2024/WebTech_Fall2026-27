@@ -41,7 +41,6 @@ let candidates = [
     }
 ];
 
-// Jobs array to manage job posts
 let jobs = [
     {
         id: 1,
@@ -49,6 +48,7 @@ let jobs = [
         location: "Dhaka / Remote",
         salary: "$1,200 - $1,800 / mo",
         vacancy: "2",
+        experience: "3+ Years",
         skills: "React, Node.js, Express, MongoDB, Docker, AWS",
         description: "Looking for an experienced lead full-stack developer with strong React and Node expertise."
     }
@@ -65,7 +65,6 @@ document.addEventListener("DOMContentLoaded", () => {
     renderJobsList();
 });
 
-// Switch between Tabs (Applicants, AI Assistant, Job Post)
 function switchTab(tabName, btn) {
     document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
     document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
@@ -74,7 +73,6 @@ function switchTab(tabName, btn) {
     document.getElementById(`tab-${tabName}`).classList.add('active');
 }
 
-// Show Custom Message Box
 function showNotification(message) {
     const existingAlert = document.querySelector('.custom-alert');
     if (existingAlert) existingAlert.remove();
@@ -89,7 +87,6 @@ function showNotification(message) {
     }, 3000);
 }
 
-// Render Candidate Cards List
 function renderCandidates() {
     const listContainer = document.getElementById("candidateList");
     if (!listContainer) return;
@@ -128,14 +125,12 @@ function renderCandidates() {
     });
 }
 
-// Select Candidate to display details
 function selectCandidate(id) {
     selectedCandidateId = id;
     renderCandidates();
     renderDetailPanel();
 }
 
-// Render Selected Candidate Detail Panel
 function renderDetailPanel() {
     const candidate = candidates.find(c => c.id === selectedCandidateId);
     const panel = document.getElementById("detailPanel");
@@ -169,7 +164,6 @@ function renderDetailPanel() {
     `;
 }
 
-// Update Candidate Status (Shortlist/Reject)
 function updateStatus(id, newStatus) {
     const candidate = candidates.find(c => c.id === id);
     if (candidate) {
@@ -179,7 +173,6 @@ function updateStatus(id, newStatus) {
     }
 }
 
-// Filter Candidates (All, Shortlisted, Pending, Rejected)
 function filterCandidates(status, buttonEl) {
     currentFilter = status;
     document.querySelectorAll('.filter-pill').forEach(btn => btn.classList.remove('active'));
@@ -187,7 +180,6 @@ function filterCandidates(status, buttonEl) {
     renderCandidates();
 }
 
-// Sort Applicants by Score
 function sortCandidates() {
     const sortVal = document.getElementById("sortSelect").value;
     if (sortVal === "highToLow") {
@@ -199,7 +191,6 @@ function sortCandidates() {
     renderChart();
 }
 
-// Render Dynamic Score Chart
 function renderChart() {
     const chartBars = document.getElementById("chartBars");
     const xAxis = document.getElementById("xAxis");
@@ -221,7 +212,6 @@ function renderChart() {
     });
 }
 
-// AI Assistant Action: Recalculate candidate matching based on new criteria
 function applyAICriteria(event) {
     event.preventDefault();
     const title = document.getElementById("positionTitle").value;
@@ -259,7 +249,7 @@ function applyAICriteria(event) {
     switchTab('applicants', document.querySelectorAll('.tab-btn')[0]);
 }
 
-// --- JOB POST FEATURE FUNCTIONS ---
+// --- JOB POST FEATURE & STRICT VALIDATION ---
 
 function handleJobSubmit(event) {
     event.preventDefault();
@@ -268,11 +258,46 @@ function handleJobSubmit(event) {
     const location = document.getElementById("jobLocationInput").value.trim();
     const salary = document.getElementById("jobSalaryInput").value.trim();
     const vacancy = document.getElementById("jobVacancyInput").value.trim();
+    const experience = document.getElementById("jobExperienceInput").value.trim();
     const skills = document.getElementById("jobSkillsInput").value.trim();
     const description = document.getElementById("jobDescInput").value.trim();
 
-    if (!title || !skills) {
-        alert("Please fill in at least Job Title and Required Skills.");
+    // Clear previous error texts
+    document.querySelectorAll('.error-text').forEach(el => el.innerText = '');
+
+    let isValid = true;
+
+    if (!title) {
+        document.getElementById("jobTitleError").innerText = "Please fill the box";
+        isValid = false;
+    }
+    if (!location) {
+        document.getElementById("jobLocationError").innerText = "Please fill the box";
+        isValid = false;
+    }
+    if (!salary) {
+        document.getElementById("jobSalaryError").innerText = "Please fill the box";
+        isValid = false;
+    }
+    if (!vacancy) {
+        document.getElementById("jobVacancyError").innerText = "Please fill the box";
+        isValid = false;
+    }
+    if (!experience) {
+        document.getElementById("jobExperienceError").innerText = "Please fill the box";
+        isValid = false;
+    }
+    if (!skills) {
+        document.getElementById("jobSkillsError").innerText = "Please fill the box";
+        isValid = false;
+    }
+    if (!description) {
+        document.getElementById("jobDescError").innerText = "Please fill the box";
+        isValid = false;
+    }
+
+    if (!isValid) {
+        showNotification("Please fill the box");
         return;
     }
 
@@ -284,6 +309,7 @@ function handleJobSubmit(event) {
             job.location = location;
             job.salary = salary;
             job.vacancy = vacancy;
+            job.experience = experience;
             job.skills = skills;
             job.description = description;
         }
@@ -297,6 +323,7 @@ function handleJobSubmit(event) {
             location,
             salary,
             vacancy,
+            experience,
             skills,
             description
         };
@@ -324,7 +351,7 @@ function renderJobsList() {
         item.innerHTML = `
             <div class="job-info">
                 <h4>${j.title} (${j.vacancy || 1} Vacancy)</h4>
-                <p>📍 ${j.location || 'Remote'} | 💰 ${j.salary || 'Negotiable'}</p>
+                <p>📍 ${j.location || 'Remote'} | 💰 ${j.salary || 'Negotiable'} | ⏱️ Exp: ${j.experience || 'N/A'}</p>
                 <p><strong>Required Skills:</strong> ${j.skills}</p>
             </div>
             <div class="job-actions">
@@ -344,6 +371,7 @@ function editJob(id) {
     document.getElementById("jobLocationInput").value = job.location;
     document.getElementById("jobSalaryInput").value = job.salary;
     document.getElementById("jobVacancyInput").value = job.vacancy;
+    document.getElementById("jobExperienceInput").value = job.experience;
     document.getElementById("jobSkillsInput").value = job.skills;
     document.getElementById("jobDescInput").value = job.description;
 
