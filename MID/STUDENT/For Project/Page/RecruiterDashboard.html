@@ -20,6 +20,7 @@
         <div class="nav-toggle">
             <button class="tab-btn active" onclick="switchTab('applicants', this)">Applicants</button>
             <button class="tab-btn" onclick="switchTab('ai', this)">AI Assistant</button>
+            <button class="tab-btn" onclick="switchTab('jobPost', this)">Job Post</button>
         </div>
     </div>
 
@@ -92,6 +93,59 @@
 
                 <button type="submit" class="btn-submit">Apply Criteria & Recalculate</button>
             </form>
+        </div>
+    </div>
+
+    <!-- TAB 3: JOB POST PAGE -->
+    <div id="tab-jobPost" class="tab-content">
+        <div class="job-post-card">
+            <h3>Create & Manage Job Vacancies</h3>
+            <p class="subtitle">Post new job openings, specify skill requirements, locations, salary, and active vacancies.</p>
+
+            <form id="jobPostForm" onsubmit="handleJobSubmit(event)">
+                <div class="form-group">
+                    <label for="jobTitleInput">Job Title</label>
+                    <input type="text" id="jobTitleInput" class="form-input" placeholder="e.g. Full Stack Engineer" required>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="jobLocationInput">Location</label>
+                        <input type="text" id="jobLocationInput" class="form-input" placeholder="e.g. Remote / Dhaka">
+                    </div>
+                    <div class="form-group">
+                        <label for="jobSalaryInput">Salary Range</label>
+                        <input type="text" id="jobSalaryInput" class="form-input" placeholder="e.g. $1,000 - $1,500">
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="jobVacancyInput">Vacancy Count</label>
+                        <input type="number" id="jobVacancyInput" class="form-input" placeholder="e.g. 2" min="1">
+                    </div>
+                    <div class="form-group">
+                        <label for="jobSkillsInput">Required Skills (Comma Separated)</label>
+                        <input type="text" id="jobSkillsInput" class="form-input" placeholder="e.g. React, Node.js, Docker" required>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="jobDescInput">Job Description / Info</label>
+                    <textarea id="jobDescInput" class="form-textarea" placeholder="Enter job summary and requirements to show customers..."></textarea>
+                </div>
+
+                <button type="submit" id="jobSubmitBtn" class="btn-submit">Post Job Vacancy</button>
+            </form>
+        </div>
+
+        <!-- Posted Jobs List Section -->
+        <div class="job-post-card">
+            <h3>Active Job Postings</h3>
+            <p class="subtitle">Manage, edit, or delete your posted job vacancies.</p>
+            <div id="postedJobsList">
+                <!-- Dynamically populated via script.js -->
+            </div>
         </div>
     </div>
 

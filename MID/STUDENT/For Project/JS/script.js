@@ -41,22 +41,52 @@ let candidates = [
     }
 ];
 
+// Jobs array to manage job posts
+let jobs = [
+    {
+        id: 1,
+        title: "Senior React / Node.js Lead",
+        location: "Dhaka / Remote",
+        salary: "$1,200 - $1,800 / mo",
+        vacancy: "2",
+        skills: "React, Node.js, Express, MongoDB, Docker, AWS",
+        description: "Looking for an experienced lead full-stack developer with strong React and Node expertise."
+    }
+];
+
 let selectedCandidateId = 1;
 let currentFilter = "All";
+let editingJobId = null;
 
 document.addEventListener("DOMContentLoaded", () => {
     renderCandidates();
     renderDetailPanel();
     renderChart();
+    renderJobsList();
 });
 
-// Switch between Applicants & AI Assistant Tabs
+// Switch between Tabs (Applicants, AI Assistant, Job Post)
 function switchTab(tabName, btn) {
     document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
     document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
 
     btn.classList.add('active');
     document.getElementById(`tab-${tabName}`).classList.add('active');
+}
+
+// Show Custom Message Box
+function showNotification(message) {
+    const existingAlert = document.querySelector('.custom-alert');
+    if (existingAlert) existingAlert.remove();
+
+    const alertBox = document.createElement('div');
+    alertBox.className = 'custom-alert';
+    alertBox.innerText = message;
+    document.body.appendChild(alertBox);
+
+    setTimeout(() => {
+        alertBox.remove();
+    }, 3000);
 }
 
 // Render Candidate Cards List
@@ -225,8 +255,105 @@ function applyAICriteria(event) {
     });
 
     sortCandidates();
-    alert(`AI recalculation complete for "${title}"! Applicants match scores have been updated.`);
-    
-    // Switch to Applicants tab to show updated result
+    showNotification(`AI criteria updated for "${title}"!`);
     switchTab('applicants', document.querySelectorAll('.tab-btn')[0]);
+}
+
+// --- JOB POST FEATURE FUNCTIONS ---
+
+function handleJobSubmit(event) {
+    event.preventDefault();
+
+    const title = document.getElementById("jobTitleInput").value.trim();
+    const location = document.getElementById("jobLocationInput").value.trim();
+    const salary = document.getElementById("jobSalaryInput").value.trim();
+    const vacancy = document.getElementById("jobVacancyInput").value.trim();
+    const skills = document.getElementById("jobSkillsInput").value.trim();
+    const description = document.getElementById("jobDescInput").value.trim();
+
+    if (!title || !skills) {
+        alert("Please fill in at least Job Title and Required Skills.");
+        return;
+    }
+
+    if (editingJobId !== null) {
+        // Update existing job
+        const job = jobs.find(j => j.id === editingJobId);
+        if (job) {
+            job.title = title;
+            job.location = location;
+            job.salary = salary;
+            job.vacancy = vacancy;
+            job.skills = skills;
+            job.description = description;
+        }
+        editingJobId = null;
+        document.getElementById("jobSubmitBtn").innerText = "Post Job Vacancy";
+    } else {
+        // Create new job
+        const newJob = {
+            id: Date.now(),
+            title,
+            location,
+            salary,
+            vacancy,
+            skills,
+            description
+        };
+        jobs.push(newJob);
+    }
+
+    document.getElementById("jobPostForm").reset();
+    renderJobsList();
+    showNotification("JOB POSTED");
+}
+
+function renderJobsList() {
+    const listContainer = document.getElementById("postedJobsList");
+    if (!listContainer) return;
+
+    if (jobs.length === 0) {
+        listContainer.innerHTML = `<p style="color:#64748b; font-size:13px; text-align:center;">No job postings available.</p>`;
+        return;
+    }
+
+    listContainer.innerHTML = "";
+    jobs.forEach(j => {
+        const item = document.createElement("div");
+        item.className = "job-item-card";
+        item.innerHTML = `
+            <div class="job-info">
+                <h4>${j.title} (${j.vacancy || 1} Vacancy)</h4>
+                <p>📍 ${j.location || 'Remote'} | 💰 ${j.salary || 'Negotiable'}</p>
+                <p><strong>Required Skills:</strong> ${j.skills}</p>
+            </div>
+            <div class="job-actions">
+                <button class="btn-edit" onclick="editJob(${j.id})">Edit</button>
+                <button class="btn-delete" onclick="deleteJob(${j.id})">Delete</button>
+            </div>
+        `;
+        listContainer.appendChild(item);
+    });
+}
+
+function editJob(id) {
+    const job = jobs.find(j => j.id === id);
+    if (!job) return;
+
+    document.getElementById("jobTitleInput").value = job.title;
+    document.getElementById("jobLocationInput").value = job.location;
+    document.getElementById("jobSalaryInput").value = job.salary;
+    document.getElementById("jobVacancyInput").value = job.vacancy;
+    document.getElementById("jobSkillsInput").value = job.skills;
+    document.getElementById("jobDescInput").value = job.description;
+
+    editingJobId = id;
+    document.getElementById("jobSubmitBtn").innerText = "Update Job Post";
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+function deleteJob(id) {
+    jobs = jobs.filter(j => j.id !== id);
+    renderJobsList();
+    showNotification("JOB POST DELETED");
 }

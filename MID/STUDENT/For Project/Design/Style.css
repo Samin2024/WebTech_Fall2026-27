@@ -16,7 +16,7 @@ body {
 .dashboard-card {
     background-color: #ffffff;
     width: 100%;
-    max-width: 650px;
+    max-width: 680px;
     border-radius: 24px;
     padding: 28px;
     box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.05), 0 8px 10px -6px rgba(0, 0, 0, 0.01);
@@ -54,8 +54,8 @@ body {
 .nav-toggle button {
     border: none;
     background: transparent;
-    padding: 8px 18px;
-    font-size: 14px;
+    padding: 8px 14px;
+    font-size: 13px;
     font-weight: 600;
     border-radius: 20px;
     cursor: pointer;
@@ -347,14 +347,15 @@ body {
     font-weight: 500;
 }
 
-/* AI Assistant Tab Styling */
-.ai-card {
+/* AI Assistant & Job Post Form Styling */
+.ai-card, .job-post-card {
     background-color: #f1f5f9;
     border-radius: 20px;
     padding: 24px;
+    margin-bottom: 20px;
 }
 
-.ai-card h3 {
+.ai-card h3, .job-post-card h3 {
     font-family: Georgia, serif;
     font-size: 20px;
     font-weight: 500;
@@ -362,7 +363,7 @@ body {
     margin-bottom: 6px;
 }
 
-.ai-card p.subtitle {
+.ai-card p.subtitle, .job-post-card p.subtitle {
     font-size: 13px;
     color: #64748b;
     margin-bottom: 20px;
@@ -370,6 +371,15 @@ body {
 
 .form-group {
     margin-bottom: 16px;
+}
+
+.form-row {
+    display: flex;
+    gap: 12px;
+}
+
+.form-row .form-group {
+    flex: 1;
 }
 
 .form-group label {
@@ -393,23 +403,97 @@ body {
 }
 
 .form-textarea {
-    height: 90px;
+    height: 80px;
     resize: vertical;
 }
 
 .btn-submit {
-    background-color: #ffffff;
-    border: 1px solid #e2e8f0;
-    padding: 10px 20px;
+    background-color: #2563eb;
+    border: none;
+    padding: 12px 24px;
     border-radius: 20px;
-    font-size: 13px;
+    font-size: 14px;
     font-weight: 600;
-    color: #0f172a;
+    color: #ffffff;
     cursor: pointer;
     transition: background-color 0.2s;
     margin-top: 8px;
 }
 
 .btn-submit:hover {
-    background-color: #f8fafc;
+    background-color: #1d4ed8;
+}
+
+/* Job Cards List Styling */
+.job-item-card {
+    background-color: #ffffff;
+    border: 1px solid #e2e8f0;
+    border-radius: 16px;
+    padding: 16px 20px;
+    margin-bottom: 12px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.job-info h4 {
+    font-size: 16px;
+    color: #0f172a;
+    font-weight: 700;
+}
+
+.job-info p {
+    font-size: 12px;
+    color: #64748b;
+    margin-top: 3px;
+}
+
+.job-actions {
+    display: flex;
+    gap: 8px;
+}
+
+.btn-edit {
+    background-color: #e0f2fe;
+    color: #0369a1;
+    border: none;
+    padding: 6px 14px;
+    border-radius: 12px;
+    font-size: 12px;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.btn-delete {
+    background-color: #ffe4e6;
+    color: #be123c;
+    border: none;
+    padding: 6px 14px;
+    border-radius: 12px;
+    font-size: 12px;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+/* Custom Alert Message Box */
+.custom-alert {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    background-color: #0f172a;
+    color: #ffffff;
+    padding: 14px 24px;
+    border-radius: 14px;
+    font-size: 14px;
+    font-weight: 600;
+    box-shadow: 0 10px 15px -3px rgba(0,0,0,0.2);
+    z-index: 1000;
+    animation: fadeInOut 3s ease forwards;
+}
+
+@keyframes fadeInOut {
+    0% { opacity: 0; transform: translateY(-10px); }
+    15% { opacity: 1; transform: translateY(0); }
+    85% { opacity: 1; transform: translateY(0); }
+    100% { opacity: 0; transform: translateY(-10px); }
 }
