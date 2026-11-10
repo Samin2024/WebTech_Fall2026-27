@@ -135,6 +135,24 @@
                     </div>
                 </div>
 
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="jobTypeInput">Job Type</label>
+                        <select id="jobTypeInput" class="form-select">
+                            <option value="">Select Job Type</option>
+                            <option value="Internship">Internship</option>
+                            <option value="Full-Time Job">Full-Time Job</option>
+                            <option value="Part-Time Job">Part-Time Job</option>
+                        </select>
+                        <div id="jobTypeError" class="error-text"></div>
+                    </div>
+                    <div class="form-group">
+                        <label for="jobDeadlineInput">Deadline (Calendar)</label>
+                        <input type="date" id="jobDeadlineInput" class="form-input">
+                        <div id="jobDeadlineError" class="error-text"></div>
+                    </div>
+                </div>
+
                 <div class="form-group">
                     <label for="jobSkillsInput">Required Skills (Comma Separated)</label>
                     <input type="text" id="jobSkillsInput" class="form-input" placeholder="e.g. React, Node.js, Docker">

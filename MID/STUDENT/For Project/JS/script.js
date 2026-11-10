@@ -49,6 +49,8 @@ let jobs = [
         salary: "$1,200 - $1,800 / mo",
         vacancy: "2",
         experience: "3+ Years",
+        jobType: "Full-Time Job",
+        deadline: "2026-11-30",
         skills: "React, Node.js, Express, MongoDB, Docker, AWS",
         description: "Looking for an experienced lead full-stack developer with strong React and Node expertise."
     }
@@ -249,7 +251,7 @@ function applyAICriteria(event) {
     switchTab('applicants', document.querySelectorAll('.tab-btn')[0]);
 }
 
-// --- JOB POST FEATURE & STRICT VALIDATION ---
+// --- JOB POST FEATURE & STRICT VALIDATION WITH JOB TYPE & DEADLINE ---
 
 function handleJobSubmit(event) {
     event.preventDefault();
@@ -259,6 +261,8 @@ function handleJobSubmit(event) {
     const salary = document.getElementById("jobSalaryInput").value.trim();
     const vacancy = document.getElementById("jobVacancyInput").value.trim();
     const experience = document.getElementById("jobExperienceInput").value.trim();
+    const jobType = document.getElementById("jobTypeInput").value;
+    const deadline = document.getElementById("jobDeadlineInput").value;
     const skills = document.getElementById("jobSkillsInput").value.trim();
     const description = document.getElementById("jobDescInput").value.trim();
 
@@ -287,6 +291,14 @@ function handleJobSubmit(event) {
         document.getElementById("jobExperienceError").innerText = "Please fill the box";
         isValid = false;
     }
+    if (!jobType) {
+        document.getElementById("jobTypeError").innerText = "Please fill the box";
+        isValid = false;
+    }
+    if (!deadline) {
+        document.getElementById("jobDeadlineError").innerText = "Please fill the box";
+        isValid = false;
+    }
     if (!skills) {
         document.getElementById("jobSkillsError").innerText = "Please fill the box";
         isValid = false;
@@ -301,8 +313,15 @@ function handleJobSubmit(event) {
         return;
     }
 
+    // Format deadline date nicely (e.g. 15-Nov-2026)
+    const dateObj = new Date(deadline);
+    const day = String(dateObj.getDate()).padStart(2, '0');
+    const months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+    const month = months[dateObj.getMonth()];
+    const year = dateObj.getFullYear();
+    const formattedDeadline = `${day}-${month}-${year}`;
+
     if (editingJobId !== null) {
-        // Update existing job
         const job = jobs.find(j => j.id === editingJobId);
         if (job) {
             job.title = title;
@@ -310,13 +329,15 @@ function handleJobSubmit(event) {
             job.salary = salary;
             job.vacancy = vacancy;
             job.experience = experience;
+            job.jobType = jobType;
+            job.deadline = deadline;
+            job.formattedDeadline = formattedDeadline;
             job.skills = skills;
             job.description = description;
         }
         editingJobId = null;
         document.getElementById("jobSubmitBtn").innerText = "Post Job Vacancy";
     } else {
-        // Create new job
         const newJob = {
             id: Date.now(),
             title,
@@ -324,6 +345,9 @@ function handleJobSubmit(event) {
             salary,
             vacancy,
             experience,
+            jobType,
+            deadline,
+            formattedDeadline,
             skills,
             description
         };
@@ -346,13 +370,25 @@ function renderJobsList() {
 
     listContainer.innerHTML = "";
     jobs.forEach(j => {
+        // Fallback format if loaded from initial array
+        let displayDeadline = j.formattedDeadline;
+        if (!displayDeadline && j.deadline) {
+            const d = new Date(j.deadline);
+            const dy = String(d.getDate()).padStart(2, '0');
+            const ms = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"][d.getMonth()];
+            const yr = d.getFullYear();
+            displayDeadline = `${dy}-${ms}-${yr}`;
+        }
+
         const item = document.createElement("div");
         item.className = "job-item-card";
         item.innerHTML = `
             <div class="job-info">
                 <h4>${j.title} (${j.vacancy || 1} Vacancy)</h4>
-                <p>📍 ${j.location || 'Remote'} | 💰 ${j.salary || 'Negotiable'} | ⏱️ Exp: ${j.experience || 'N/A'}</p>
+                <p>💼 <strong>Type:</strong> ${j.jobType || 'Full-Time Job'} | 📍 <strong>Location:</strong> ${j.location} | 💰 <strong>Salary:</strong> ${j.salary}</p>
+                <p>⏱️ <strong>Exp:</strong> ${j.experience} | 📅 <strong>Deadline:</strong> ${displayDeadline || 'N/A'}</p>
                 <p><strong>Required Skills:</strong> ${j.skills}</p>
+                <p style="margin-top: 4px; color: #475569;"><strong>Description:</strong> ${j.description}</p>
             </div>
             <div class="job-actions">
                 <button class="btn-edit" onclick="editJob(${j.id})">Edit</button>
@@ -372,6 +408,8 @@ function editJob(id) {
     document.getElementById("jobSalaryInput").value = job.salary;
     document.getElementById("jobVacancyInput").value = job.vacancy;
     document.getElementById("jobExperienceInput").value = job.experience;
+    document.getElementById("jobTypeInput").value = job.jobType || "Full-Time Job";
+    document.getElementById("jobDeadlineInput").value = job.deadline || "";
     document.getElementById("jobSkillsInput").value = job.skills;
     document.getElementById("jobDescInput").value = job.description;
 
