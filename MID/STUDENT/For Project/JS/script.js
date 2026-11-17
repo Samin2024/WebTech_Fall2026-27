@@ -251,7 +251,7 @@ function applyAICriteria(event) {
     switchTab('applicants', document.querySelectorAll('.tab-btn')[0]);
 }
 
-// --- JOB POST FEATURE & STRICT VALIDATION WITH JOB TYPE & DEADLINE ---
+
 
 function handleJobSubmit(event) {
     event.preventDefault();
@@ -266,7 +266,7 @@ function handleJobSubmit(event) {
     const skills = document.getElementById("jobSkillsInput").value.trim();
     const description = document.getElementById("jobDescInput").value.trim();
 
-    // Clear previous error texts
+    
     document.querySelectorAll('.error-text').forEach(el => el.innerText = '');
 
     let isValid = true;
@@ -313,7 +313,7 @@ function handleJobSubmit(event) {
         return;
     }
 
-    // Format deadline date nicely (e.g. 15-Nov-2026)
+   
     const dateObj = new Date(deadline);
     const day = String(dateObj.getDate()).padStart(2, '0');
     const months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
@@ -370,7 +370,7 @@ function renderJobsList() {
 
     listContainer.innerHTML = "";
     jobs.forEach(j => {
-        // Fallback format if loaded from initial array
+        
         let displayDeadline = j.formattedDeadline;
         if (!displayDeadline && j.deadline) {
             const d = new Date(j.deadline);
